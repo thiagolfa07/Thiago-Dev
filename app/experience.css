@@ -1,0 +1,663 @@
+
+/* ==========================================
+   THIAGO.DEV — EXPERIÊNCIA INTERATIVA
+   Complemento do portfolio.css
+   ========================================== */
+
+/* PARTÍCULAS E CAMADAS DO FUNDO */
+
+.pf-site .pf-particle-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.pf-site[data-theme="light"] .pf-particle-canvas {
+  opacity: 0.5;
+}
+
+.pf-site .pf-hero,
+.pf-site .pf-section,
+.pf-site .pf-contact-hub-section,
+.pf-site .pf-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.pf-site .pf-header {
+  z-index: 60;
+}
+
+.pf-site .pf-section-alt {
+  background: color-mix(
+    in srgb,
+    var(--pf-surface) 92%,
+    transparent
+  );
+}
+
+.pf-site .pf-footer {
+  background: color-mix(
+    in srgb,
+    var(--pf-surface) 94%,
+    transparent
+  );
+}
+
+/* ==========================================
+   FUNDO FUTURISTA DO HERO
+   ========================================== */
+
+.pf-site .pf-hero-neon {
+  isolation: isolate;
+}
+
+.pf-neon-floor {
+  position: absolute;
+  bottom: -290px;
+  left: -35%;
+  width: 170%;
+  height: 580px;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(168, 85, 247, 0.29) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(168, 85, 247, 0.29) 1px,
+      transparent 1px
+    );
+
+  background-size: 70px 70px;
+
+  transform:
+    perspective(540px)
+    rotateX(67deg);
+
+  transform-origin: center center;
+
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 8%,
+    transparent 67%
+  );
+
+  animation: pfNeonGrid 15s linear infinite;
+}
+
+.pf-neon-horizon {
+  position: absolute;
+  z-index: 0;
+  left: 5%;
+  right: 5%;
+  bottom: 18%;
+  height: 2px;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(147, 51, 234, 0.15),
+    rgba(217, 70, 239, 0.5),
+    rgba(147, 51, 234, 0.15),
+    transparent
+  );
+
+  box-shadow:
+    0 0 32px rgba(168, 85, 247, 0.36),
+    0 0 90px rgba(168, 85, 247, 0.15);
+}
+
+.pf-neon-waves {
+  position: absolute;
+  z-index: 0;
+  bottom: -15px;
+  left: -10%;
+  width: 120%;
+  height: 370px;
+  pointer-events: none;
+
+  opacity: 0.68;
+  filter: drop-shadow(
+    0 0 9px rgba(217, 70, 239, 0.65)
+  );
+
+  animation: pfWaveFloat 10s ease-in-out infinite;
+}
+
+.pf-site .pf-hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes pfNeonGrid {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 0 70px, 70px 0;
+  }
+}
+
+@keyframes pfWaveFloat {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(-25px);
+    opacity: 0.85;
+  }
+}
+
+/* ==========================================
+   CARDS COM EFEITO 3D
+   ========================================== */
+
+.pf-site .pf-tilt-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --shine-x: 50%;
+  --shine-y: 50%;
+
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: auto;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pf-site .pf-ready .pf-tilt-card.pf-visible,
+  .pf-site.pf-ready .pf-tilt-card.pf-visible {
+    transform:
+      perspective(1100px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+  }
+
+  .pf-site.pf-ready .pf-project-card.pf-tilt-card.pf-visible:hover {
+    transform:
+      perspective(1100px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y))
+      translateY(-5px);
+  }
+
+  .pf-site.pf-ready .pf-skill-card.pf-tilt-card.pf-visible:hover {
+    transform:
+      perspective(900px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y))
+      translateY(-4px);
+  }
+}
+
+/* BRILHO DO CARD */
+
+.pf-site .pf-tilt-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: radial-gradient(
+    240px circle at
+      var(--shine-x)
+      var(--shine-y),
+    rgba(192, 132, 252, 0.11),
+    transparent 75%
+  );
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.pf-site .pf-tilt-card:hover::after {
+  opacity: 1;
+}
+
+/* ==========================================
+   CENTRAL DE CONTATO
+   ========================================== */
+
+.pf-contact-hub-section {
+  padding: 90px 0 105px;
+  overflow: hidden;
+}
+
+.pf-contact-hub {
+  position: relative;
+  overflow: hidden;
+
+  padding: clamp(25px, 4vw, 55px);
+
+  background: color-mix(
+    in srgb,
+    var(--pf-surface) 93%,
+    transparent
+  );
+
+  border: 1px solid var(--pf-border-strong);
+  border-radius: 27px;
+
+  box-shadow:
+    0 20px 65px var(--pf-shadow),
+    inset 0 1px rgba(168, 85, 247, 0.08);
+}
+
+.pf-contact-hub-glow {
+  position: absolute;
+  top: -240px;
+  right: -160px;
+  width: 540px;
+  height: 540px;
+
+  border-radius: 50%;
+  background: rgba(147, 51, 234, 0.19);
+  filter: blur(100px);
+
+  pointer-events: none;
+  animation: pfFloat 14s ease-in-out infinite;
+}
+
+.pf-contact-hub::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #8b5cf6,
+    #e879f9,
+    transparent
+  );
+
+  box-shadow: 0 0 18px rgba(192, 132, 252, 0.5);
+}
+
+.pf-contact-hub-header {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 25px;
+  margin-bottom: 33px;
+}
+
+.pf-contact-hub-title {
+  max-width: 730px;
+  margin-top: 13px;
+
+  font-size: clamp(29px, 4vw, 48px);
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 1.16;
+}
+
+.pf-contact-hub-title span {
+  background: linear-gradient(
+    90deg,
+    #a855f7,
+    #e040fb
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pf-contact-hub-intro {
+  max-width: 650px;
+  margin-top: 18px;
+
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--pf-muted);
+}
+
+.pf-contact-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+
+  padding: 11px 14px;
+
+  border: 1px solid rgba(52, 211, 153, 0.27);
+  border-radius: 999px;
+
+  background: rgba(16, 185, 129, 0.07);
+  color: #5ee0b1;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pf-site[data-theme="light"] .pf-contact-availability {
+  color: #047857;
+}
+
+.pf-availability-dot {
+  display: inline-block;
+  flex-shrink: 0;
+
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  background: #34d399;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+
+  animation: pfAvailability 2.6s ease-in-out infinite;
+}
+
+@keyframes pfAvailability {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(52, 211, 153, 0.4);
+  }
+
+  50% {
+    opacity: 0.65;
+    box-shadow: 0 0 17px rgba(52, 211, 153, 0.8);
+  }
+}
+
+/* GRID DE CONTATOS */
+
+.pf-contact-grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.pf-contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  min-width: 0;
+
+  padding: 24px;
+
+  border: 1px solid var(--pf-border);
+  border-radius: 18px;
+  background: var(--pf-bg);
+  color: var(--pf-text);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.pf-contact-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--pf-border-strong);
+  box-shadow: 0 12px 30px var(--pf-shadow);
+}
+
+.pf-contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 50px;
+  height: 50px;
+
+  background: var(--pf-surface-2);
+  color: var(--pf-accent);
+
+  border: 1px solid var(--pf-border);
+  border-radius: 14px;
+}
+
+.pf-contact-card-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.pf-contact-kicker {
+  display: block;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--pf-accent);
+}
+
+.pf-contact-card h3 {
+  margin-top: 9px;
+
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.pf-contact-card p {
+  margin-top: 11px;
+
+  color: var(--pf-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.pf-contact-email {
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.pf-contact-card-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.pf-contact-action,
+.pf-contact-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 36px;
+  padding: 8px 12px;
+
+  border: 1px solid var(--pf-border-strong);
+  border-radius: 9px;
+
+  background: var(--pf-surface-2);
+  color: var(--pf-accent);
+
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pf-contact-action:hover,
+.pf-contact-copy:hover {
+  transform: translateY(-2px);
+  border-color: var(--pf-accent);
+}
+
+.pf-contact-copy {
+  cursor: pointer;
+}
+
+.pf-contact-link-card .pf-contact-action {
+  margin-top: 20px;
+}
+
+.pf-contact-copy-error {
+  color: #fb7185 !important;
+  font-size: 11px !important;
+}
+
+.pf-contact-hub-footer {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+
+  margin-top: 32px;
+  padding-top: 23px;
+
+  border-top: 1px solid var(--pf-border);
+
+  color: var(--pf-muted);
+  font-size: 12px;
+}
+
+.pf-contact-hub-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--pf-text);
+  font-weight: 750;
+}
+
+/* ==========================================
+   RESPONSIVIDADE
+   ========================================== */
+
+@media (max-width: 900px) {
+  .pf-contact-hub-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .pf-neon-floor {
+    height: 400px;
+    bottom: -190px;
+    background-size: 55px 55px;
+    opacity: 0.6;
+  }
+
+  .pf-neon-waves {
+    height: 250px;
+    opacity: 0.45;
+  }
+
+  .pf-contact-hub-section {
+    padding: 58px 0 72px;
+  }
+
+  .pf-contact-hub {
+    padding: 23px 17px;
+    border-radius: 20px;
+  }
+
+  .pf-contact-hub-title {
+    font-size: 31px;
+  }
+
+  .pf-contact-hub-intro {
+    font-size: 14px;
+  }
+
+  .pf-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pf-contact-card {
+    gap: 13px;
+    padding: 17px 14px;
+  }
+
+  .pf-contact-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .pf-contact-card h3 {
+    font-size: 17px;
+  }
+
+  .pf-contact-hub-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================
+   MODO CLARO
+   ========================================== */
+
+.pf-site[data-theme="light"] .pf-neon-floor {
+  opacity: 0.17;
+}
+
+.pf-site[data-theme="light"] .pf-neon-waves {
+  opacity: 0.28;
+}
+
+.pf-site[data-theme="light"] .pf-neon-horizon {
+  opacity: 0.3;
+}
+
+.pf-site[data-theme="light"] .pf-contact-hub-glow {
+  opacity: 0.4;
+}
+
+/* ==========================================
+   ACESSIBILIDADE
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-neon-floor,
+  .pf-neon-waves,
+  .pf-availability-dot {
+    animation: none !important;
+  }
+
+  .pf-site .pf-tilt-card,
+  .pf-site .pf-tilt-card:hover {
+    --tilt-x: 0deg !important;
+    --tilt-y: 0deg !important;
+  }
+
+  .pf-site.pf-ready .pf-tilt-card.pf-visible,
+  .pf-site.pf-ready .pf-tilt-card.pf-visible:hover {
+    transform: none !important;
+  }
+}
